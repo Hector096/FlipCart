@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import AlertTemplate from 'react-alert-template-basic';
 import store from './redux/store';
 import 'antd/dist/antd.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';

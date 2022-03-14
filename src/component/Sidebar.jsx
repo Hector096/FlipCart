@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {
     AppstoreOutlined,
     BarChartOutlined,
@@ -11,18 +11,21 @@ import {
 
 
 export default function Sidebar() {
+  const [collapsed,setCollaped] = useState(false)
 
     const { Sider } = Layout;
+
+    const onCollapse = collapsed => {
+      setCollaped(collapsed);
+    };
   return (
     <Sider
-    style={{
-      overflow: 'auto',
-      height: '100vh',
-      position: 'fixed',
-      left: 0,
-      top: 0,
-      bottom: 0,
+    collapsible collapsed={collapsed} onCollapse={onCollapse}
+    breakpoint="lg"
+    onBreakpoint={() => {
+      setCollaped(false);
     }}
+
   >
     <div className="logo" />
     <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
@@ -34,14 +37,17 @@ export default function Sidebar() {
       </Menu.Item>
       <Menu.Item className="fw-bold" key="3" icon={<UploadOutlined />}>
        ORDERS
+      </Menu.Item>.
+      <Menu.Item className="fw-bold" key="4" icon={<UploadOutlined />}>
+       ADMIN
       </Menu.Item>
-      <Menu.Item className="fw-bold" key="4" icon={<BarChartOutlined />}>
+      <Menu.Item className="fw-bold" key="5" icon={<BarChartOutlined />}>
         LOGIN
       </Menu.Item>
-      <Menu.Item className="fw-bold" key="5" icon={<CloudOutlined />}>
+      <Menu.Item className="fw-bold" key="6" icon={<CloudOutlined />}>
        SIGN UP
       </Menu.Item>
-      <Menu.Item className="fw-bold" key="6" icon={<AppstoreOutlined />}>
+      <Menu.Item className="fw-bold" key="7" icon={<AppstoreOutlined />}>
         LOGOUT
       </Menu.Item>
     </Menu>

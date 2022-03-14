@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { Layout } from 'antd';
 import { clearMessage } from './redux/action/message';
 import Sidebar from './component/Sidebar';
+import Login from './component/Login';
 
 function App() {
   const dispatch = useDispatch();
@@ -12,19 +13,17 @@ function App() {
     Content, Footer,
   } = Layout;
   const location = useLocation();
+
   useEffect(() => {
     dispatch(clearMessage()); // clear message when changing location
   }, [dispatch, location]);
-  return (
-    <Layout hasSider>
-      <Sidebar />
-      <Layout className="site-layout" style={{ marginLeft: 200 }}>
-        <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-          <div className="site-layout-background" style={{ padding: 24, textAlign: 'center' }}>
 
-            <br />
-            content
-          </div>
+  return (
+    <Layout style={{ minHeight: '100vh' }}>
+      <Sidebar />
+      <Layout>
+        <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+          <Login />
         </Content>
         <Footer style={{ textAlign: 'center' }}>FlipCart ©2022 Created by Hector, Leo and Kamwa</Footer>
       </Layout>
