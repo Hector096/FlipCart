@@ -11,11 +11,11 @@ import {
 import AuthService from '../../service/auth';
 
 // eslint-disable-next-line max-len
-export const register = (name, email, password) => (dispatch) => AuthService.register(name, email, password).then(
+export const register = (values) => (dispatch) => AuthService.register(values).then(
   (response) => {
     dispatch({
       type: REGISTER_SUCCESS,
-      payload: { user: response.data },
+      payload: { user: response.data.user },
     });
 
     dispatch({
@@ -32,7 +32,6 @@ export const register = (name, email, password) => (dispatch) => AuthService.reg
             && error.response.data.message)
           || error.message
           || error.toString();
-      // const message = error.response.data.errors[0];
     dispatch({
       type: REGISTER_FAIL,
     });
@@ -56,11 +55,11 @@ export const login = (email, password) => (dispatch) => AuthService.login(email,
     return Promise.resolve();
   },
   (error) => {
-    const message = (error.response
-            && error.response.data
-            && error.response.data.message)
-          || error.message
-          || error.toString();
+    const message = error.response.status === 401 ? 'Inavlid Credentials' : (error.response
+      && error.response.data
+      && error.response.data.message)
+    || error.message
+    || error.toString();
 
     dispatch({
       type: LOGIN_FAIL,

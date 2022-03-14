@@ -4,29 +4,31 @@ import {
 } from 'antd';
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom'
+import { register } from '../redux/action/auth';
 
 export default function Signup() {
     const { Title } = Typography;
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
-    // const { message } = useSelector(state => state.message);
+    const { isLoggedIn } = useSelector(state => state.auth);
+    const { message } = useSelector(state => state.message);
     const alert = useAlert();
     const dispatch = useDispatch();
     const onFinish = (values) => {
       setLoading(true);
       if (values) {
-        console.log(values);
-        // dispatch(login(values.username, values.password))
-        //   .then(() => {
-        //     setLoading(false);
-        //     alert.show('You are logged in', {
-        //       type: 'success',
-        //       timeout: 5000,
-        //     });
-        //   })
-        //   .catch(() => {
-        //     setLoading(false);
-        //   });
+        dispatch(register(values))
+          .then(() => {
+            setLoading(false);
+            alert.show('You are Registered Sucessfully', {
+              type: 'success',
+              timeout: 5000,
+            });
+          })
+          .catch(() => {
+            setLoading(false);
+          });
       } else {
         setLoading(false);
       }
@@ -53,6 +55,10 @@ export default function Signup() {
         },
       },
     };
+
+    if (isLoggedIn) {
+      return <Redirect to="/" />;
+    }
   
     return (
       <div className="container mt-5 pt-5">
@@ -64,13 +70,13 @@ export default function Signup() {
           onFinish={onFinish}
           className="d-flex flex-column align-items-center"
         >
-          {/* {message && (
+          {message && (
           <div className="form-group">
             <div className="alert alert-danger" role="alert">
               {message}
             </div>
           </div>
-          )} */}
+          )}
           <Form.Item
             label="Name"
             name="name"
@@ -104,6 +110,21 @@ export default function Signup() {
             ]}
           >
             <Input />
+          </Form.Item>
+          <Form.Item
+            label="Address"
+            name="address"
+            style={{
+              width: '100%',
+            }}
+            rules={[
+              {
+                required: true,
+                message: 'Please input your Shipping Address!',
+              },
+            ]}
+          >
+            <Input.TextArea />
           </Form.Item>
   
           <Form.Item

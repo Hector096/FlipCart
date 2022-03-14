@@ -4,32 +4,32 @@ import {
 } from 'antd';
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom'
-// import { login } from '../redux/action/auth';
+import { useHistory,Redirect } from 'react-router-dom'
+import { login } from '../redux/action/auth';
 
 export default function Login() {
 
   const { Title } = Typography;
   const history = useHistory();
   const [loading, setLoading] = useState(false);
-  // const { message } = useSelector(state => state.message);
+  const { isLoggedIn } = useSelector(state => state.auth);
+  const { message } = useSelector(state => state.message);
   const alert = useAlert();
   const dispatch = useDispatch();
   const onFinish = (values) => {
     setLoading(true);
     if (values) {
-      console.log(values);
-      // dispatch(login(values.username, values.password))
-      //   .then(() => {
-      //     setLoading(false);
-      //     alert.show('You are logged in', {
-      //       type: 'success',
-      //       timeout: 5000,
-      //     });
-      //   })
-      //   .catch(() => {
-      //     setLoading(false);
-      //   });
+      dispatch(login(values.email, values.password))
+        .then(() => {
+          setLoading(false);
+          alert.show('You are logged in', {
+            type: 'success',
+            timeout: 5000,
+          });
+        })
+        .catch(() => {
+          setLoading(false);
+        });
     } else {
       setLoading(false);
     }
@@ -57,6 +57,10 @@ export default function Login() {
     },
   };
 
+  if (isLoggedIn) {
+    return <Redirect to="/" />;
+  }
+
   const signup = ()=>{
     history.push("/signup")
   }
@@ -71,13 +75,13 @@ export default function Login() {
         autoComplete="off"
         className="d-flex flex-column align-items-center"
       >
-        {/* {message && (
+        {message && (
         <div className="form-group">
           <div className="alert alert-danger" role="alert">
             {message}
           </div>
         </div>
-        )} */}
+        )}
         <Form.Item
           label="Username"
           name="email"
