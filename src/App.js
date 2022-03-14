@@ -6,6 +6,7 @@ import { Layout } from 'antd';
 import { clearMessage } from './redux/action/message';
 import Sidebar from './component/Sidebar';
 import Login from './component/Login';
+import Signup from './component/Signup';
 
 function App() {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ function App() {
       <Sidebar />
       <Layout>
         <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-          <Login />
+          <Signup />
         </Content>
         <Footer style={{ textAlign: 'center' }}>FlipCart ©2022 Created by Hector, Leo and Kamwa</Footer>
       </Layout>

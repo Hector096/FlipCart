@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function Signup() {
     const { Title } = Typography;
+    const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
     // const { message } = useSelector(state => state.message);
     const alert = useAlert();
@@ -54,13 +55,13 @@ export default function Signup() {
     };
   
     return (
-      <div className="container mt-5 pt-5 pe-5">
-        <Title className="text-center mb-5">Login</Title>
+      <div className="container mt-5 pt-5">
+        <Title className="text-center mb-5">Sign up</Title>
         {/* eslint-disable-next-line */}
         <Form {...formItemLayout}
-          name="login"
+        form={form}
+          name="signup"
           onFinish={onFinish}
-          autoComplete="off"
           className="d-flex flex-column align-items-center"
         >
           {/* {message && (
@@ -71,12 +72,31 @@ export default function Signup() {
           </div>
           )} */}
           <Form.Item
-            label="Username"
+            label="Name"
+            name="name"
+            style={{
+              width: '100%',
+            }}
+            rules={[
+              {
+                required: true,
+                message: 'Please input your name!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Email"
             name="email"
             style={{
               width: '100%',
             }}
             rules={[
+                {
+                    type: 'email',
+                    message: 'The input is not valid E-mail!',
+                  },
               {
                 required: true,
                 message: 'Please input your username!',
@@ -88,6 +108,7 @@ export default function Signup() {
   
           <Form.Item
             label="Password"
+            hasFeedback
             name="password"
             style={{
               width: '100%',
@@ -97,7 +118,37 @@ export default function Signup() {
                 required: true,
                 message: 'Please input your password!',
               },
+              {
+                min: 6,
+                message: 'Password must contain more then 6 alphanumeric character!',
+              },
             ]}
+          >
+            <Input.Password />
+          </Form.Item>
+          <Form.Item
+            label="Confirm Password"
+            hasFeedback
+            name="password_confirmation"
+            dependencies={['password']}
+            style={{
+              width: '100%',
+            }}
+            rules={[
+                {
+                  required: true,
+                  message: 'Please confirm your password!',
+                },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue('password') === value) {
+                      return Promise.resolve();
+                    }
+      
+                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                  },
+                }),
+              ]}
           >
             <Input.Password />
           </Form.Item>
