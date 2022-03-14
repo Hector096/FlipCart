@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import {
-    Form, Input, Button, Typography,
+    Form, Input, Button, Typography, Select, InputNumber
 } from 'antd';
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 export default function NewProduct() {
     const { Title } = Typography;
+    const { Option } = Select;
     const [loading, setLoading] = useState(false);
     const alert = useAlert();
     const dispatch = useDispatch();
@@ -43,7 +44,7 @@ export default function NewProduct() {
 
     return (
         <div className="container mt-5 pt-5">
-            <Title className="text-center mb-5">New Category</Title>
+            <Title className="text-center mb-5">New Product</Title>
             {/* eslint-disable-next-line */}
             <Form {...formItemLayout}
                 name="newProduct"
@@ -59,7 +60,7 @@ export default function NewProduct() {
                     rules={[
                         {
                             required: true,
-                            message: 'Please input the category name!',
+                            message: 'Please input the product name!',
                         },
                     ]}
                 >
@@ -74,11 +75,11 @@ export default function NewProduct() {
                     rules={[
                         {
                             required: true,
-                            message: 'Please input the category name!',
+                            message: 'Please input the product description!',
                         },
                     ]}
                 >
-                    <Input />
+                    <Input.TextArea />
                 </Form.Item>
                 <Form.Item
                     label="Image"
@@ -89,7 +90,7 @@ export default function NewProduct() {
                     rules={[
                         {
                             required: true,
-                            message: 'Please input the category name!',
+                            message: 'Please input the image url!',
                         },
                     ]}
                 >
@@ -104,11 +105,16 @@ export default function NewProduct() {
                     rules={[
                         {
                             required: true,
-                            message: 'Please input the category name!',
+                            message: 'Please input the product price!',
                         },
                     ]}
                 >
-                    <Input />
+                    <InputNumber
+                        style={{
+                            width: '100%',
+                        }}
+                        min={0}
+                    />
                 </Form.Item>
                 <Form.Item
                     label="Quantity"
@@ -119,11 +125,16 @@ export default function NewProduct() {
                     rules={[
                         {
                             required: true,
-                            message: 'Please input the category name!',
+                            message: 'Please input the product quantity!',
                         },
                     ]}
                 >
-                    <Input />
+                    <InputNumber
+                        style={{
+                            width: '100%',
+                        }}
+                        min={0}
+                    />
                 </Form.Item>
                 <Form.Item
                     label="Category"
@@ -134,7 +145,7 @@ export default function NewProduct() {
                     rules={[
                         {
                             required: true,
-                            message: 'Please input the category name!',
+                            message: 'Please input the category!',
                         },
                     ]}
                 >
