@@ -38,7 +38,7 @@ export default function NewCategory() {
           },
         },
       };
-      
+
     return (
         <div className="container mt-5 pt-5">
             <Title className="text-center mb-5">New Category</Title>
