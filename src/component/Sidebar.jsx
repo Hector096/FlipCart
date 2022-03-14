@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
 import {
-    AppstoreOutlined,
-    BarChartOutlined,
-    CloudOutlined,
-    UserOutlined,
-    UploadOutlined,
-    VideoCameraOutlined,
+    LoginOutlined,
+    LogoutOutlined,
+    HomeOutlined,
+    AliwangwangOutlined,
+    ShoppingCartOutlined,
+    TagOutlined,
+    PlusOutlined,
   } from '@ant-design/icons';
   import { Layout, Menu } from 'antd';
 
@@ -27,27 +28,24 @@ export default function Sidebar() {
     }}
 
   >
-    <div className="logo" />
-    <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
-      <Menu.Item className="fw-bold" key="1" icon={<UserOutlined />}>
+    <div className="logo pt-5 mt-5" />
+    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+      <Menu.Item className="fw-bold" key="1" icon={<HomeOutlined />}>
         HOME
       </Menu.Item>
-      <Menu.Item className="fw-bold" key="2" icon={<VideoCameraOutlined />}>
+      <Menu.Item className="fw-bold" key="2" icon={<TagOutlined />}>
         PRODUCTS
       </Menu.Item>
-      <Menu.Item className="fw-bold" key="3" icon={<UploadOutlined />}>
+      <Menu.Item className="fw-bold" key="3" icon={<ShoppingCartOutlined />}>
        ORDERS
       </Menu.Item>.
-      <Menu.Item className="fw-bold" key="4" icon={<UploadOutlined />}>
+      <Menu.Item className="fw-bold" key="4" icon={<AliwangwangOutlined />}>
        ADMIN
       </Menu.Item>
-      <Menu.Item className="fw-bold" key="5" icon={<BarChartOutlined />}>
+      <Menu.Item className="fw-bold" key="5" icon={<LoginOutlined />}>
         LOGIN
       </Menu.Item>
-      <Menu.Item className="fw-bold" key="6" icon={<CloudOutlined />}>
-       SIGN UP
-      </Menu.Item>
-      <Menu.Item className="fw-bold" key="7" icon={<AppstoreOutlined />}>
+      <Menu.Item className="fw-bold" key="7" icon={<LogoutOutlined />}>
         LOGOUT
       </Menu.Item>
     </Menu>

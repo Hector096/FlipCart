@@ -4,11 +4,13 @@ import {
 } from 'antd';
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom'
 // import { login } from '../redux/action/auth';
 
 export default function Login() {
 
   const { Title } = Typography;
+  const history = useHistory();
   const [loading, setLoading] = useState(false);
   // const { message } = useSelector(state => state.message);
   const alert = useAlert();
@@ -55,8 +57,12 @@ export default function Login() {
     },
   };
 
+  const signup = ()=>{
+    history.push("/signup")
+  }
+
   return (
-    <div className="container mt-5 pt-5 pe-5">
+    <div className="container mt-5 pt-5">
       <Title className="text-center mb-5">Login</Title>
       {/* eslint-disable-next-line */}
       <Form {...formItemLayout}
@@ -114,6 +120,11 @@ export default function Login() {
             <span className="spinner-border spinner-border-sm" />
             )}
             <span>  Submit</span>
+          </Button>
+        </Form.Item>
+        <Form.Item>
+        <Button type='link' onClick={signup}>
+            Not a member? Sign up
           </Button>
         </Form.Item>
       </Form>
