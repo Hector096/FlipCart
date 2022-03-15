@@ -4,6 +4,9 @@ import {
 } from 'antd';
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
+import { addCategory } from '../redux/action/category';
+
+
 export default function NewCategory() {
     const { Title } = Typography;
     const [loading, setLoading] = useState(false);
@@ -13,6 +16,17 @@ export default function NewCategory() {
         setLoading(true);
         if (values) {
             console.log(values);
+            dispatch(addCategory(values))
+                .then(() => {
+                    setLoading(false);
+                    alert.show('Category created sucessfully', {
+                        type: 'success',
+                        timeout: 5000,
+                    });
+                })
+                .catch(() => {
+                    setLoading(false);
+                });
         } else {
             setLoading(false);
         }

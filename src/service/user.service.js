@@ -16,7 +16,7 @@ const fetchCategory = () => axios.get(`${API_URL}/categories`);
 const addCategory = (values) => axios.post(`${API_URL}/categories`,values,{headers: authHeader()});
 
 // eslint-disable-next-line
-const fetchOrders = () => axios.get(`${API_URL}/orders`,null,{headers: authHeader()});
+const fetchOrders = () => axios.get(`${API_URL}/orders`, {headers: authHeader()});
 
 // eslint-disable-next-line
 const addOrders = (values) => axios.post(`${API_URL}/orders`,values,{headers: authHeader()});
