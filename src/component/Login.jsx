@@ -4,16 +4,15 @@ import {
 } from 'antd';
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory,Redirect } from 'react-router-dom'
+import { useHistory, Redirect } from 'react-router-dom';
 import { login } from '../redux/action/auth';
 
 export default function Login() {
-
   const { Title } = Typography;
   const history = useHistory();
   const [loading, setLoading] = useState(false);
-  const { isLoggedIn } = useSelector(state => state.auth);
-  const { message } = useSelector(state => state.message);
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { message } = useSelector((state) => state.message);
   const alert = useAlert();
   const dispatch = useDispatch();
   const onFinish = (values) => {
@@ -61,9 +60,9 @@ export default function Login() {
     return <Redirect to="/" />;
   }
 
-  const signup = ()=>{
-    history.push("/signup")
-  }
+  const signup = () => {
+    history.push('/signup');
+  };
 
   return (
     <div className="container mt-5 pt-5">
@@ -127,11 +126,11 @@ export default function Login() {
           </Button>
         </Form.Item>
         <Form.Item>
-        <Button type='link' onClick={signup}>
+          <Button type="link" onClick={signup}>
             Not a member? Sign up
           </Button>
         </Form.Item>
       </Form>
     </div>
-  )
+  );
 }
