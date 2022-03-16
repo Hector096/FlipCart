@@ -10,9 +10,7 @@ export default function Products() {
   const productsList = useSelector((state) => state.products.products)
 
   useEffect(() => {
-    if (!productsList.length) {
       dispatch(fetchProducts());
-    }
   }, [])
 
   const priceStyle = {
@@ -28,9 +26,9 @@ export default function Products() {
         <Card
           hoverable
           style={{ width: 220 }}
-          cover={<img alt="product image" src={`${product.img}`} />}
+          cover={<img alt="product image" className='p-2' src={`${product.img}`} />}
         >
-          <Meta title={`${product.name}`} description={`${product.description}`} />
+          <Meta title={`${product.name}`} className="text-truncate" description={`${product.description}`} />
           <Meta style={priceStyle} description={'$' + `${product.price}`}/>
         </Card>
       </div>
@@ -40,7 +38,7 @@ export default function Products() {
   return (
     <>
       <Divider orientation="left">Products</Divider>
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} justify="center">
+      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} justify="left">
       { displayProducts }
       </Row>
     </>

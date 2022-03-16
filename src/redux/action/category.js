@@ -12,10 +12,9 @@ import UserService from '../../service/user.service';
 // eslint-disable-next-line max-len
 export const addCategory = (values) => (dispatch) => UserService.addCategory(values).then(
   (response) => {
-    console.log(response.data);
     dispatch({
       type: CATEGORY_SUCCESS,
-      payload: response.data,
+      payload: response.data.category,
     });
 
     dispatch({

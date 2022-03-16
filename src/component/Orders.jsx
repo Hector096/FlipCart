@@ -14,9 +14,7 @@ export default function Orders() {
   })
 
   useEffect(() => {
-    if (!ordersList.length) {
       dispatch(fetchOrders());
-    }
   }, [])
 
   const columns = [

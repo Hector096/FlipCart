@@ -6,7 +6,8 @@ import {
   import {
     DeleteOutlined
   } from '@ant-design/icons';
-  import { fetchOrders } from '../redux/action/order';
+  import { useAlert } from 'react-alert';
+  import { fetchOrders,deleteOrders } from '../redux/action/order';
   import { setMessage } from '../redux/action/message';
 
 export default function AdminOrder() {
@@ -14,16 +15,18 @@ export default function AdminOrder() {
     const { message } = useSelector(state => state.message);
     const { user: currentUser } = useSelector(state => state.auth);
     const ordersList = useSelector((state) => state.orders.orders);
+    const productsList = useSelector((state) => state.products.products)
     const dispatch = useDispatch();
     const [successful, setSuccessful] = useState(false);
     const [loading, setLoading] = useState(false);
+    const alert = useAlert();
     const [deleteLoading, setDeleteLoading] = useState(false);
     const [confirm, setConfirm] = useState(false);
+   
 
 
     useEffect(() => {
       if(currentUser.admin){
-        if (!ordersList.length) {
           setLoading(true);
           dispatch(fetchOrders()).then(() => { 
             setLoading(false);
@@ -33,8 +36,14 @@ export default function AdminOrder() {
             setLoading(false);
           });
         }
-      }
     }, [])
+
+    const onDelete = (id)=>{
+     dispatch(deleteOrders(id)).then( alert.show('Order Successfully Deleted!', {
+      type: 'success',
+      timeout: 5000,
+    }))
+    }
 
 
     const columns = [
@@ -55,14 +64,14 @@ export default function AdminOrder() {
         dataIndex: 'status',
         width: '20%',
         align: 'right',
-        render : (text) => String(text),
+        render : (text) => text === false?"Pending":"Shipped",
       },
       {
         title: 'Action',
         dataIndex: '',
         key: 'x',
         align: 'right',
-        render: () => <a>Delete</a>,
+        render: (record) => <DeleteOutlined className="text-danger" style={{fontSize: 20}} onClick={()=>{onDelete(record.id)}}/>,
       }
     ]
 
@@ -93,7 +102,7 @@ export default function AdminOrder() {
             </Button>,
           ]}
       />
-   <Divider orientation="right">Orders</Divider>
+   <Divider orientation="center">All Orders</Divider>
     <Table
       columns={columns}
       dataSource={ordersList}
