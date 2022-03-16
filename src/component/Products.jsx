@@ -8,7 +8,6 @@ export default function Products() {
   const dispatch = useDispatch();
   const { Meta } = Card;
   const productsList = useSelector((state) => state.products.products)
-  console.log(productsList)
 
   useEffect(() => {
     if (!productsList.length) {
@@ -24,7 +23,7 @@ export default function Products() {
   };
 
   const displayProducts = productsList.map((product) => (
-    <Col>
+    <Col key={product.id}>
       <div>
         <Card
           hoverable
@@ -40,7 +39,7 @@ export default function Products() {
 
   return (
     <>
-      <Divider orientation="right">Products</Divider>
+      <Divider orientation="left">Products</Divider>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} justify="center">
       { displayProducts }
       </Row>

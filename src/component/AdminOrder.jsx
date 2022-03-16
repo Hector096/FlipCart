@@ -1,59 +1,68 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import {
-    Table, Button, Modal
+    Table, Button, Modal, Divider
   } from 'antd';
+  import { fetchOrders } from '../redux/action/order';
   import { setMessage } from '../redux/action/message';
 
 export default function AdminOrder() {
 
     const { message } = useSelector(state => state.message);
     const { user: currentUser } = useSelector(state => state.auth);
+    const ordersList = useSelector((state) => state.orders.orders);
     const dispatch = useDispatch();
+    const [successful, setSuccessful] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [deleteLoading, setDeleteLoading] = useState(false);
     const [confirm, setConfirm] = useState(false);
 
-    const columns = [
-        {
-          title: 'Patient Name',
-          render: (record)=> (`${record.patient.firstName} ${record.patient.lastName ? record.patient.lastName : ""}`)
-        },
-        {
-          title: 'Doctor Name',
-          render: (record)=> record.user.name
-        },
-        {
-          title: 'Date and Time',
-          dataIndex: 'scheduleDateTime',
-          sorter: {
-            compare: (a, b) => moment(a.scheduleDateTime) - moment(b.scheduleDateTime),
-          },
-          render: scheduleDateTime => (<>{moment(scheduleDateTime.split(" ")[0] + "T" + scheduleDateTime.split(" ")[1]+"Z").toLocaleString().substring(0,24)}</>),
-        },
-        {
-          title: 'Appointment Type',
-          dataIndex: 'appointmentType',
-        },
-        {
-          title: 'Patient Status',
-          dataIndex: 'patientStatus',
-        }
-      ];
 
     useEffect(() => {
-        if (currentUser.admin) {
-            if (orders === 0) {
-              setLoading(true);
-              dispatch(getDoctors())
-                .then(() => { 
-                  setLoadingDoctors(false);
-                })
-                .catch((err) => {
-                  dispatch(setMessage('Unable to get order list'));
-                });
-            }
+      if(currentUser.admin){
+        if (!ordersList.length) {
+          setLoading(true);
+          dispatch(fetchOrders()).then(() => { 
+            setLoading(false);
+          })
+          .catch((err) => {
+            dispatch(setMessage('Unable to get order list'));
+            setLoading(false);
+          });
         }
-      }, []);
+      }
+    }, [])
+
+
+    const columns = [
+      { 
+        title: 'Product ID',
+        dataIndex: 'product_id',
+        width: '20%',
+      },
+      {
+        title: 'Quantity',
+        dataIndex: 'quantity',
+        sorter: true,
+        width: '20%',
+        align: 'right',
+      },
+      {
+        title: 'Shipped',
+        dataIndex: 'status',
+        width: '20%',
+        align: 'right',
+        render : (text) => String(text),
+      },
+      {
+        title: 'Action',
+        dataIndex: '',
+        key: 'x',
+        align: 'right',
+        render: () => <a>Delete</a>,
+      }
+    ]
+
   return (
     <>
 
@@ -70,7 +79,7 @@ export default function AdminOrder() {
         onCancel={() => setConfirm(false)}
         visible={confirm}
         footer={[
-            <Button key="back1" type="danger" disabled={deleteLoading} onClick={()=>onSelectChange(modalData)}>
+            <Button key="back1" type="danger" disabled={deleteLoading}>
               {deleteLoading && (
               <span className="spinner-border spinner-border-sm" />
             )}
@@ -81,13 +90,12 @@ export default function AdminOrder() {
             </Button>,
           ]}
       />
+   <Divider orientation="right">Orders</Divider>
     <Table
-        hideDefaultSelections
-        className="border"
-        columns={columns}
-        dataSource={content}
-        pagination={{ defaultPageSize: 6 }}
-      />
+      columns={columns}
+      dataSource={ordersList}
+      rowKey={record => record.id}
+    />
     </>
   )
 }

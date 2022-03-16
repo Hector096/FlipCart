@@ -29,7 +29,6 @@ export default function Sidebar() {
       setCollaped(collapsed);
     };
     const onClickMenu = (item) => {
-      console.log(item.key)
       if(item.key ==="/logout"){
         dispatch(logout()).then(() => {
           alert.show('You are logged out', {
