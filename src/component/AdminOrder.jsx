@@ -12,6 +12,7 @@ export default function AdminOrder() {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
     const [confirm, setConfirm] = useState(false);
+    const [deleteLoading, setDeleteLoading] = useState(false);
 
     const columns = [
         {
