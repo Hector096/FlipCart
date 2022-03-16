@@ -16,7 +16,6 @@ export default function AdminOrder() {
     const [loading, setLoading] = useState(false);
     const [deleteLoading, setDeleteLoading] = useState(false);
     const [confirm, setConfirm] = useState(false);
-    const [deleteLoading, setDeleteLoading] = useState(false);
 
 
     useEffect(() => {
