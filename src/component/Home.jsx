@@ -1,14 +1,14 @@
-import React from 'react'
+/* eslint-disable jsx-a11y/alt-text */
+import React from 'react';
 import { Carousel } from 'antd';
 import { Card } from 'antd';
 
 export default function Home() {
-
   const contentStyle = {
     height: '60vh',
     textAlign: 'center',
     width: '100vw',
-    fit: "contain"
+    fit: 'contain',
   };
 
   const contentStyle1 = {
@@ -17,7 +17,11 @@ export default function Home() {
     width: '90vw',
   };
   return (
+<<<<<<< HEAD
     <><Carousel autoplay>
+=======
+    <Carousel autoplay>
+>>>>>>> d88f94ab87dccdb140467184e79782981e7cb217
       <div>
         <img style={contentStyle} src="https://images.unsplash.com/photo-1539185441755-769473a23570?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" />
       </div>
@@ -31,6 +35,7 @@ export default function Home() {
         <img style={contentStyle} src="https://images.unsplash.com/photo-1539185441755-769473a23570?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" />
       </div>
     </Carousel>
+<<<<<<< HEAD
     <Carousel autoplay>
         <div>
           <img style={contentStyle1} src="https://images.unsplash.com/photo-1577746838851-816a43ca8733?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8aGFpciUyMGNhcmV8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60" />
@@ -46,4 +51,7 @@ export default function Home() {
         </div>
       </Carousel></>
   )
+=======
+  );
+>>>>>>> d88f94ab87dccdb140467184e79782981e7cb217
 }
