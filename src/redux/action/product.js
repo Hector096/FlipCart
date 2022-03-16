@@ -12,6 +12,7 @@ import UserService from '../../service/user.service';
 // eslint-disable-next-line max-len
 export const addProduct = (values) => (dispatch) => UserService.addProducts(values).then(
   (response) => {
+    console.log(response.data)
     dispatch({
       type: PRODUCT_SUCCESS,
     });

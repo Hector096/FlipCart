@@ -1,20 +1,53 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Form, Input, Button, Typography, Select, InputNumber
 } from 'antd';
+import { Redirect } from 'react-router-dom'
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
+import { addProduct } from '../redux/action/product';
+import { fetchCategory } from '../redux/action/category';
+
 export default function NewProduct() {
     const { Title } = Typography;
     const { Option } = Select;
     const [loading, setLoading] = useState(false);
     const alert = useAlert();
     const dispatch = useDispatch();
+    const categoriesList = useSelector((state) => state.categories.categories)
+    console.log(categoriesList)
+
+    useEffect(() => {
+        if (!categoriesList.length) {
+            dispatch(fetchCategory())
+        }
+    }, [])
+
+    const categoryOptions = categoriesList.map(category => (
+        <Option
+            key={category.id}
+            value={`${category.id}`}
+        >
+            {`${category.name}`}
+        </Option>
+    ))
 
     const onFinish = (values) => {
         setLoading(true);
         if (values) {
             console.log(values);
+            dispatch(addProduct(values))
+                .then(() => {
+                    setLoading(false);
+                    alert.show('Product created sucessfully', {
+                        type: 'success',
+                        timeout: 5000,
+                    });
+                    <Redirect to="/products" />;
+                })
+                .catch(() => {
+                    setLoading(false);
+                });
         } else {
             setLoading(false);
         }
@@ -149,8 +182,9 @@ export default function NewProduct() {
                         },
                     ]}
                 >
-                    <Select>
-                        <Option>Hello vishal</Option>
+                    <Select allowClear
+                    >
+                        {categoryOptions}
                     </Select>
                 </Form.Item>
                 <Form.Item>

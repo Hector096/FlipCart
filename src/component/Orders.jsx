@@ -53,7 +53,7 @@ export default function Orders() {
     <Divider orientation="right">Orders</Divider>
     <Table
       columns={columns}
-      dataSource={userOrders}
+      dataSource={ordersList}
       rowKey={record => record.id}
     />
     </>

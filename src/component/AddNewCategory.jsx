@@ -16,7 +16,7 @@ export default function NewCategory() {
         setLoading(true);
         if (values) {
             console.log(values);
-            dispatch(addCategory(values))
+            dispatch(addCategory(JSON.stringify(values)))
                 .then(() => {
                     setLoading(false);
                     alert.show('Category created sucessfully', {
