@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     Table, Button, Modal, Divider
   } from 'antd';
+  import {
+    DeleteOutlined
+  } from '@ant-design/icons';
   import { fetchOrders } from '../redux/action/order';
   import { setMessage } from '../redux/action/message';
 

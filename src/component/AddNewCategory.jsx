@@ -3,7 +3,7 @@ import {
     Form, Input, Button, Typography,
 } from 'antd';
 import { useAlert } from 'react-alert';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addCategory } from '../redux/action/category';
 
 
@@ -12,11 +12,13 @@ export default function NewCategory() {
     const [loading, setLoading] = useState(false);
     const alert = useAlert();
     const dispatch = useDispatch();
+
+
     const onFinish = (values) => {
         setLoading(true);
         if (values) {
             console.log(values);
-            dispatch(addCategory(JSON.stringify(values)))
+            dispatch(addCategory(values))
                 .then(() => {
                     setLoading(false);
                     alert.show('Category created sucessfully', {
