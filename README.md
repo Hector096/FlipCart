@@ -10,6 +10,7 @@
 - JavaScript
 - CSS
 - Redux
+- VsCode
 
 ## Getting Started
 
