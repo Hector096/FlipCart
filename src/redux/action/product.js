@@ -5,6 +5,8 @@ import {
   PRODUCT_FETCH_FAIL,
   PRODUCT_SUCCESS,
   SET_MESSAGE,
+  PRODUCT_DELETE_FAIL,
+  PRODUCT_DELETE_SUCCESS
 } from './types';
 
 import UserService from '../../service/user.service';
@@ -15,6 +17,7 @@ export const addProduct = (values) => (dispatch) => UserService.addProducts(valu
     console.log(response.data)
     dispatch({
       type: PRODUCT_SUCCESS,
+      payload: response.data.product
     });
 
     dispatch({
@@ -67,6 +70,35 @@ export const fetchProducts = () => (dispatch) => UserService.fetchProducts().the
             || error.toString();
     dispatch({
       type: PRODUCT_FETCH_FAIL,
+    });
+
+    dispatch({
+      type: SET_MESSAGE,
+      payload: message,
+    });
+
+    return Promise.reject();
+  },
+);
+
+export const deleteProduct = (id) => (dispatch) => UserService.deleteProduct(id).then(
+  (response) => {
+    dispatch({
+      type: PRODUCT_DELETE_SUCCESS,
+      payload: id
+    });
+
+    return Promise.resolve();
+  },
+  (error) => {
+    console.log(error.response);
+    const message = (error.response
+              && error.response.data
+              && error.response.data.message)
+            || error.message
+            || error.toString();
+    dispatch({
+      type: PRODUCT_DELETE_FAIL,
     });
 
     dispatch({
