@@ -1,18 +1,35 @@
 import React, { useState } from 'react';
 import {
-    Form, Input, Button, Typography,
+    Form, Input, Button,
 } from 'antd';
 import { useAlert } from 'react-alert';
-import { useDispatch, useSelector } from 'react-redux';
-export default function NewCategory() {
-    const { Title } = Typography;
+import { useDispatch } from 'react-redux';
+import { addCategory } from '../redux/action/category';
+
+
+export default function NewCategory(props) {
     const [loading, setLoading] = useState(false);
     const alert = useAlert();
     const dispatch = useDispatch();
+    const [form] = Form.useForm();
+
+
     const onFinish = (values) => {
         setLoading(true);
         if (values) {
-            console.log(values);
+            dispatch(addCategory(values))
+                .then(() => {
+                    setLoading(false);
+                    alert.show('Category created sucessfully', {
+                        type: 'success',
+                        timeout: 5000,
+                    });
+                    form.resetFields()
+                    props.close();
+                })
+                .catch(() => {
+                    setLoading(false);
+                });
         } else {
             setLoading(false);
         }
@@ -40,10 +57,10 @@ export default function NewCategory() {
       };
 
     return (
-        <div className="container mt-5 pt-5">
-            <Title className="text-center mb-5">New Category</Title>
+        <div className="container mt-2">
             {/* eslint-disable-next-line */}
             <Form {...formItemLayout}
+                form={form}
                 name="newCategory"
                 onFinish={onFinish}
                 className="d-flex flex-column align-items-center"

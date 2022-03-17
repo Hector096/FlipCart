@@ -14,6 +14,7 @@ export const addCategory = (values) => (dispatch) => UserService.addCategory(val
   (response) => {
     dispatch({
       type: CATEGORY_SUCCESS,
+      payload: response.data.category,
     });
 
     dispatch({

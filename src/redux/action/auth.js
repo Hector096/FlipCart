@@ -55,7 +55,7 @@ export const login = (email, password) => (dispatch) => AuthService.login(email,
     return Promise.resolve();
   },
   (error) => {
-    const message = error.response.status === 401 ? 'Inavlid Credentials' : (error.response
+    const message = error.response.status === 401 ? 'Invalid Credentials' : (error.response
       && error.response.data
       && error.response.data.message)
     || error.message
@@ -76,7 +76,6 @@ export const login = (email, password) => (dispatch) => AuthService.login(email,
 
 export const logout = () => (dispatch) => {
   AuthService.logout();
-
   dispatch({
     type: LOGOUT,
   });
