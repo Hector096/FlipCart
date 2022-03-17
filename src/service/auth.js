@@ -12,7 +12,7 @@ const register = (values) => axios.post(`${API_URL}/signup`, { user: values })
       return response;
     }
     throw response.data.message;
-  }, (error) => { console.log(error); });
+  });
 
 const login = (email, password) => axios
   .post(`${API_URL}/login`, {

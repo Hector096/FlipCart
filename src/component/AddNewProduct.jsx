@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
     Form, Input, Button, Select, InputNumber, Modal
 } from 'antd';
-import { Redirect } from 'react-router-dom'
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from '../redux/action/product';

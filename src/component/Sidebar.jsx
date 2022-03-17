@@ -80,7 +80,27 @@ export default function Sidebar() {
           </Menu.Item>
         ) : (<></>)}
 
-      </Menu>
-    </Sider>
-  );
+  >
+    <div className="logo pt-5 mt-5" />
+    <Menu theme="dark" mode="inline" defaultSelectedKeys={["/"]} selectedKeys={[location.pathname]} onClick={onClickMenu}>
+      <Menu.Item className="fw-bold" key="/products" icon={<TagOutlined />}>
+        HOME
+      </Menu.Item>
+      {currentUser ? (<Menu.Item className="fw-bold" key="/orders" icon={<ShoppingCartOutlined />}>
+       ORDERS
+      </Menu.Item>):(<></>)}
+      {currentUser && currentUser.admin ? (<Menu.Item className="fw-bold" key="/admin" icon={<AliwangwangOutlined />}>
+       ADMIN
+      </Menu.Item>):(<></>)}
+      {!currentUser ? (<Menu.Item className="fw-bold" key="/login" icon={<LoginOutlined />}>
+        LOGIN
+      </Menu.Item>):(<></>)}
+      
+      {currentUser ? (<Menu.Item className="fw-bold" key="/logout" icon={<LogoutOutlined />}>
+        LOGOUT
+      </Menu.Item>):(<></>)}
+      
+    </Menu>
+  </Sider>
+  )
 }

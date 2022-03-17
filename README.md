@@ -2,6 +2,7 @@
 
 > FlipCart is a single page app that permits users to see products, place orders and see your list of orders. You can check the back-end version using [FlipCart-backend](https://github.com/Hector096/FlipCart-backend)
 
+---
 
 ## Built With
 
@@ -42,6 +43,7 @@ To get a local copy of this project just do the following:
 
 Contributions, issues, and feature requests are welcome!
 
+Feel free to check the [issues page](https://github.com/Hector096/PokeApp/issues).
 
 ## Show your support
 
