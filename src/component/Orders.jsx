@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { DeleteOutlined } from '@ant-design/icons';
-import { fetchOrders } from '../redux/action/order';
-import { Table, Divider } from 'antd';
+import { fetchOrders, deleteOrders } from '../redux/action/order';
+import { Divider } from 'antd';
 import { fetchProducts } from '../redux/action/product';
-import { List, Space, Steps } from 'antd';
+import { List, Steps } from 'antd';
+import { useAlert } from 'react-alert';
 
 export default function Orders() {
   const dispatch = useDispatch();
   const { Step } = Steps;
   const { user: currentUser } = useSelector(state => state.auth);
+  const alert = useAlert();
   const ordersList = useSelector((state) => state.orders.orders);
   const productsList = useSelector((state) => state.products.products)
 
@@ -37,6 +39,13 @@ export default function Orders() {
     }
   }, [])
 
+  const onDelete = (id)=>{
+    dispatch(deleteOrders(id)).then( alert.show('Order Successfully Deleted!', {
+     type: 'success',
+     timeout: 5000,
+   }))
+   }
+
   const listData = [];
 
   if (ordersList.length > 0 && productsList.length > 0) {
@@ -48,13 +57,6 @@ export default function Orders() {
       });
     });
   }
-
-  const IconText = ({ icon, text }) => (
-    <Space>
-      {React.createElement(icon)}
-      {text}
-    </Space>
-  );
 
   return (
     <>
@@ -74,7 +76,7 @@ export default function Orders() {
         <List.Item
           key={item.title}
           actions={[
-            <IconText icon={DeleteOutlined} text="Delete" key="list-vertical-delete" />
+            <DeleteOutlined className="text-danger" style={{fontSize: 20}} onClick={() =>{onDelete(item.id)}}/>
           ]}
           extra={
             <img
