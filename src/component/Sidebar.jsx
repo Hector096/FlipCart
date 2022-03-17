@@ -23,20 +23,21 @@ export default function Sidebar() {
 
   const { Sider } = Layout;
 
-  const onCollapse = (collapsed) => {
-    setCollaped(collapsed);
-  };
-  const onClickMenu = (item) => {
-    if (item.key === '/logout') {
-      dispatch(logout()).then(() => {
-        alert.show('You are logged out', {
-          type: 'success',
-          timeout: 5000,
-        });
-        history.push('/');
-      });
-    } else {
-      history.push(item.key);
+    const onCollapse = collapsed => {
+      setCollaped(collapsed);
+    };
+    const onClickMenu = (item) => {
+      if(item.key ==="/logout"){
+        dispatch(logout()).then(() => {
+          alert.show('You are logged out', {
+            type: 'success',
+            timeout: 5000,
+          });
+          history.push("/")
+        })
+      }else{
+        history.push(item.key)
+      }
     }
   };
   return (

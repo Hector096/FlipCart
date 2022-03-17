@@ -8,6 +8,11 @@ import Sidebar from './component/Sidebar';
 import Login from './component/Login';
 import Signup from './component/Signup';
 import Home from './component/Home';
+import Orders from './component/Orders';
+import Admin from './component/Admin';
+import AddNewCategory from './component/AddNewCategory';
+import Products from './component/Products';
+import AddNewProduct from './component/AddNewProduct';
 
 function App() {
   const dispatch = useDispatch();
@@ -27,8 +32,13 @@ function App() {
         <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
           <Switch>
             <Route exact path={['/', '/home']} component={Home} />
+            <Route exact path="/products" component={Products} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
+            <Route exact path="/orders" component={Orders} />
+            <Route exact path="/admin" component={Admin} />
+            <Route exact path="/categories/new" component={AddNewCategory} />
+            <Route exact path="/products/new" component={AddNewProduct} />
           </Switch>
         </Content>
         <Footer style={{ textAlign: 'center' }}>FlipCart ©2022 Created by Hector, Leo and Kamwa</Footer>
