@@ -28,19 +28,22 @@ export default function Sidebar() {
     const onCollapse = collapsed => {
       setCollaped(collapsed);
     };
+
+
     const onClickMenu = (item) => {
       if(item.key ==="/logout"){
-        dispatch(logout()).then(() => {
-          alert.show('You are logged out', {
-            type: 'success',
-            timeout: 5000,
-          });
-          history.push("/home")
+        dispatch(logout())
+        history.push("/home")
+        alert.show('Logged Out!', {
+          type: 'success',
+          timeout: 5000,
         })
       }else{
         history.push(item.key)
       }
     }
+
+
   return (
     <Sider
     collapsible collapsed={collapsed} onCollapse={onCollapse}
