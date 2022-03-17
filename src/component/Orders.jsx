@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { DeleteOutlined } from '@ant-design/icons';
 import { fetchOrders, deleteOrders } from '../redux/action/order';
 import { Divider } from 'antd';
 import { fetchProducts } from '../redux/action/product';
-import { List, Steps } from 'antd';
+import { List, Steps, Button, Image } from 'antd';
 import { useAlert } from 'react-alert';
 
 export default function Orders() {
@@ -16,8 +15,10 @@ export default function Orders() {
   const productsList = useSelector((state) => state.products.products)
 
   const userOrders = ordersList.filter(order => {
-    if (order.user_id === currentUser.id) {
-      return order
+    if(order){
+      if (order.user_id === currentUser.id) {
+        return order
+      }
     }
   })
 
@@ -31,12 +32,8 @@ export default function Orders() {
   }
 
   useEffect(() => {
-    if (!ordersList.length) {
       dispatch(fetchOrders());
-    }
-    if (!productsList.length) {
       dispatch(fetchProducts());
-    }
   }, [])
 
   const onDelete = (id)=>{
@@ -60,14 +57,11 @@ export default function Orders() {
 
   return (
     <>
-    <Divider orientation="left">Orders</Divider>
+    <Divider orientation="left">Your Orders</Divider>
     <List
       itemLayout="vertical"
       size="small"
       pagination={{
-        onChange: page => {
-          console.log(page);
-        },
         pageSize: 5,
       }}
       dataSource={listData}
@@ -76,22 +70,19 @@ export default function Orders() {
         <List.Item
           key={item.title}
           actions={[
-            <DeleteOutlined className="text-danger" style={{fontSize: 20}} onClick={() =>{onDelete(item.id)}}/>
+            <Button type='danger' onClick={() =>{onDelete(item.id)}}>Cancel Order</Button>
           ]}
           extra={
-            <img
-              width={200}
-              height={200}
-              alt="product image"
-              src={item.img}
-            />
+            <Image
+            width={200}
+            src={`${item.img}`}/>
           }
         >
           <List.Item.Meta
             title={item.title}
             description={`Your order id number is #${item.id}`}
           />
-          <Steps direction="vertical" current={1}>
+          <Steps direction="horizontal" current={1}>
             <Step title="Ordered" description="The order has been placed"/>
             <Step title="In Progress" description="The order is being prepared"/>
             <Step title="Shipped" description="The order has been shipped"/>

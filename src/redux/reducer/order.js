@@ -4,7 +4,7 @@ import {
   ORDER_FETCH_SUCCESS,
   ORDER_SUCCESS,
   ORDER_DELETE_FAIL,
-  ORDER_DELETE_SUCCESS
+  ORDER_DELETE_SUCCESS,
 } from '../action/types';
 
 const initialState = { orders: [] };
@@ -16,20 +16,20 @@ export default function orders(state = initialState, action) {
     case ORDER_SUCCESS:
       return {
         ...state,
-        orders:[...state.orders,payload]
+        orders: [...state.orders, payload],
       };
     case ORDER_FAIL:
       return {
         ...state,
       };
-      case ORDER_DELETE_FAIL:
+    case ORDER_DELETE_FAIL:
       return {
         ...state,
       };
-      case ORDER_DELETE_SUCCESS:
+    case ORDER_DELETE_SUCCESS:
       return {
         ...state,
-        orders:state.orders.filter(item=>item.id !== payload)
+        orders: state.orders.filter((item) => item.id !== payload),
       };
     case ORDER_FETCH_SUCCESS:
       return {

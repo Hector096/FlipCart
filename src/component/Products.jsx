@@ -1,16 +1,21 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProducts } from '../redux/action/product';
 import { Card } from 'antd';
-import { Row, Col, Divider, Space } from 'antd';
+import { Row, Col, Divider, Space, Modal, Image } from 'antd';
+import ProductDetail from './ProductDetail';
 
 export default function Products() {
   const dispatch = useDispatch();
   const { Meta } = Card;
   const productsList = useSelector((state) => state.products.products)
+  const [visible, setVisible] = useState(false);
+  const [modalData, setModalData] = useState('');
 
   useEffect(() => {
+    if(productsList.length === 0){
       dispatch(fetchProducts());
+    }
   }, [])
 
   const priceStyle = {
@@ -20,16 +25,28 @@ export default function Products() {
     fontWeight: '600'
   };
 
+  const closeModal = ()=>{
+    setVisible(false);
+  }
+
   const displayProducts = productsList.map((product) => (
-    <Col key={product.id}>
+    <Col key={product.id}  className="mb-4">
       <div>
         <Space direction="vertical">
         <Card
           hoverable
           style={{ width: 220 }}
-          cover={<img alt="product image" className='p-2' src={`${product.img}`} />}
+          cover={
+            <div className='d-flex' style={{ overflow: "hidden", height: "200px" }}>
+              <Image
+      src={`${product.img}`}
+    />
+          </div>}
         >
-          <Meta title={`${product.name}`} className="text-truncate" description={`${product.description}`} />
+          <Meta onClick={()=>{
+            setModalData(product)
+            setVisible(true)
+          }} title={`${product.name}`} className="text-truncate" description={`${product.description}`} />
           <Meta style={priceStyle} description={'$' + `${product.price}`}/>
         </Card>
         </Space>
@@ -39,8 +56,18 @@ export default function Products() {
 
   return (
     <>
+      <Modal
+        title="Product Detail"
+        centered
+        onCancel={() => {
+          setVisible(false)
+        }}
+        footer={false}
+        visible={visible}
+        width={1000}
+      ><ProductDetail data={modalData} close={closeModal}/></Modal>
       <Divider orientation="left">Products</Divider>
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} justify="left">
+      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} wrap={true} justify="center">
       { displayProducts }
       </Row>
     </>
