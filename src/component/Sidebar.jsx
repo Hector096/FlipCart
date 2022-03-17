@@ -80,7 +80,8 @@ export default function Sidebar() {
           </Menu.Item>
         ) : (<></>)}
 
-  >
+      </Menu>
+      
     <div className="logo pt-5 mt-5" />
     <Menu theme="dark" mode="inline" defaultSelectedKeys={["/"]} selectedKeys={[location.pathname]} onClick={onClickMenu}>
       <Menu.Item className="fw-bold" key="/products" icon={<TagOutlined />}>
