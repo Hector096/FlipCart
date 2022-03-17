@@ -55,11 +55,8 @@ export default function Sidebar() {
   >
     <div className="logo pt-5 mt-5" />
     <Menu theme="dark" mode="inline" defaultSelectedKeys={["/"]} selectedKeys={[location.pathname]} onClick={onClickMenu}>
-      <Menu.Item className="fw-bold" key="/" icon={<HomeOutlined />}>
-                HOME
-      </Menu.Item>
       <Menu.Item className="fw-bold" key="/products" icon={<TagOutlined />}>
-        PRODUCTS
+        HOME
       </Menu.Item>
       {currentUser ? (<Menu.Item className="fw-bold" key="/orders" icon={<ShoppingCartOutlined />}>
        ORDERS
