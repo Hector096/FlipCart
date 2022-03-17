@@ -32,12 +32,8 @@ export default function Orders() {
   }
 
   useEffect(() => {
-    if (ordersList.length === 0) {
       dispatch(fetchOrders());
-    }
-    if (productsList.length === 0) {
       dispatch(fetchProducts());
-    }
   }, [])
 
   const onDelete = (id)=>{
@@ -66,9 +62,6 @@ export default function Orders() {
       itemLayout="vertical"
       size="small"
       pagination={{
-        onChange: page => {
-          console.log(page);
-        },
         pageSize: 5,
       }}
       dataSource={listData}
