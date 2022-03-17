@@ -35,5 +35,5 @@ export default {
   addOrders,
   addProducts,
   deleteOrders,
-  deleteProduct
+  deleteProduct,
 };

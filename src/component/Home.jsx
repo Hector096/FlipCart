@@ -9,7 +9,9 @@ export default function Home() {
   const productsList = useSelector((state) => state.products.products)
 
   useEffect(() => {
+    if(productsList.length === 0){
       dispatch(fetchProducts());
+    }
   }, [])
 
   const shuffledProducts = productsList.sort(function(){return .5 - Math.random()});

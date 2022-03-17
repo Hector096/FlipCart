@@ -35,7 +35,7 @@ export default function Sidebar() {
             type: 'success',
             timeout: 5000,
           });
-          history.push("/")
+          history.push("/home")
         })
       }else{
         history.push(item.key)

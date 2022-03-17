@@ -4,7 +4,7 @@ import {
   PRODUCT_FETCH_FAIL,
   PRODUCT_SUCCESS,
   PRODUCT_DELETE_FAIL,
-  PRODUCT_DELETE_SUCCESS
+  PRODUCT_DELETE_SUCCESS,
 } from '../action/types';
 
 const initialState = { products: [] };
@@ -16,18 +16,18 @@ export default function products(state = initialState, action) {
     case PRODUCT_SUCCESS:
       return {
         ...state,
-        products:[...state.products,payload]
+        products: [...state.products, payload],
       };
     case PRODUCT_FAIL:
       return {
         ...state,
       };
-      case PRODUCT_DELETE_SUCCESS:
+    case PRODUCT_DELETE_SUCCESS:
       return {
         ...state,
-        products:state.products.filter(item=>item.id !== payload)
+        products: state.products.filter((item) => item.id !== payload),
       };
-      case PRODUCT_DELETE_FAIL:
+    case PRODUCT_DELETE_FAIL:
       return {
         ...state,
       };
