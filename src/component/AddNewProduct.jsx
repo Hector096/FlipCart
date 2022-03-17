@@ -1,20 +1,53 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-    Form, Input, Button, Typography, Select, InputNumber
+    Form, Input, Button, Select, InputNumber, Modal
 } from 'antd';
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
-export default function NewProduct() {
-    const { Title } = Typography;
+import { addProduct } from '../redux/action/product';
+import { fetchCategory } from '../redux/action/category';
+import AddNewCategory from './AddNewCategory'
+
+export default function NewProduct(props) {
     const { Option } = Select;
     const [loading, setLoading] = useState(false);
     const alert = useAlert();
+    const [form] = Form.useForm();
     const dispatch = useDispatch();
+    const [categoryVisible, setCategoryVisible] = useState(false);
+    const categoriesList = useSelector((state) => state.categories.categories)
+
+    useEffect(() => {
+            dispatch(fetchCategory())
+    }, [])
+
+    const categoryOptions = categoriesList.map(category => (
+        <Option
+            key={category.id}
+            value={`${category.id}`}
+        >
+            {`${category.name}`}
+        </Option>
+    ))
+
+    const closeCategory =()=>setCategoryVisible(false)
 
     const onFinish = (values) => {
         setLoading(true);
         if (values) {
-            console.log(values);
+            dispatch(addProduct(values))
+                .then(() => {
+                    setLoading(false);
+                    alert.show('Product created sucessfully', {
+                        type: 'success',
+                        timeout: 5000,
+                    });
+                    form.resetFields();
+                    props.closeProduct()
+                })
+                .catch(() => {
+                    setLoading(false);
+                });
         } else {
             setLoading(false);
         }
@@ -43,11 +76,21 @@ export default function NewProduct() {
       };
 
     return (
-        <div className="container mt-5 pt-5">
-            <Title className="text-center mb-5">New Product</Title>
+        <div className="container mt-2">
             {/* eslint-disable-next-line */}
+            <Modal
+        title="Add New Category"
+        centered
+        onCancel={() => {
+          setCategoryVisible(false)
+        }}
+        footer={false}
+        visible={categoryVisible}
+        width={1000}
+      ><AddNewCategory close={closeCategory}/></Modal>
             <Form {...formItemLayout}
                 name="newProduct"
+                form={form}
                 onFinish={onFinish}
                 className="d-flex flex-column align-items-center"
             >
@@ -82,7 +125,7 @@ export default function NewProduct() {
                     <Input.TextArea />
                 </Form.Item>
                 <Form.Item
-                    label="Image"
+                    label="Image Url"
                     name="img"
                     style={{
                         width: '100%',
@@ -149,10 +192,17 @@ export default function NewProduct() {
                         },
                     ]}
                 >
-                    <Select>
-                        <Option>Hello vishal</Option>
+                    <Select allowClear showSearch
+                    filterOption={(input, option) =>  
+                        option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                      }
+                    >
+                        {categoryOptions}
                     </Select>
                 </Form.Item>
+               <Form.Item style={{width: "100%",paddingLeft: "20%"}} >
+               <Button type='dashed' className='mt-2' style={{width: "100%"}} onClick={()=>{setCategoryVisible(true)}}> Create New Category</Button>
+               </Form.Item>
                 <Form.Item>
                     <Button htmlType="submit" disabled={loading} type="primary">
                         {loading && (

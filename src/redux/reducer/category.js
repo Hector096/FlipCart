@@ -14,6 +14,7 @@ export default function categories(state = initialState, action) {
     case CATEGORY_SUCCESS:
       return {
         ...state,
+        categories: [...state.categories, payload],
       };
     case CATEGORY_FAIL:
       return {

@@ -4,6 +4,8 @@ import {
   ORDER_FAIL,
   ORDER_FETCH_FAIL,
   ORDER_FETCH_SUCCESS,
+  ORDER_DELETE_FAIL,
+  ORDER_DELETE_SUCCESS,
   SET_MESSAGE,
 } from './types';
 
@@ -12,8 +14,10 @@ import UserService from '../../service/user.service';
 // eslint-disable-next-line max-len
 export const addOrder = (values) => (dispatch) => UserService.addOrders(values).then(
   (response) => {
+    console.log(response.data);
     dispatch({
       type: ORDER_SUCCESS,
+      payload: response.data.order,
     });
 
     dispatch({
@@ -24,7 +28,6 @@ export const addOrder = (values) => (dispatch) => UserService.addOrders(values).
     return Promise.resolve();
   },
   (error) => {
-    console.log(error.response);
     const message = (error.response
               && error.response.data
               && error.response.data.message)
@@ -66,6 +69,36 @@ export const fetchOrders = () => (dispatch) => UserService.fetchOrders().then(
             || error.toString();
     dispatch({
       type: ORDER_FETCH_FAIL,
+    });
+
+    dispatch({
+      type: SET_MESSAGE,
+      payload: message,
+    });
+
+    return Promise.reject();
+  },
+);
+
+export const deleteOrders = (id) => (dispatch) => UserService.deleteOrders(id).then(
+  // eslint-disable-next-line
+  (response) => {
+    dispatch({
+      type: ORDER_DELETE_SUCCESS,
+      payload: id,
+    });
+
+    return Promise.resolve();
+  },
+  (error) => {
+    console.log(error.response);
+    const message = (error.response
+              && error.response.data
+              && error.response.data.message)
+            || error.message
+            || error.toString();
+    dispatch({
+      type: ORDER_DELETE_FAIL,
     });
 
     dispatch({

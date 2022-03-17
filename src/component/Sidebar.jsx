@@ -28,20 +28,22 @@ export default function Sidebar() {
     const onCollapse = collapsed => {
       setCollaped(collapsed);
     };
+
+
     const onClickMenu = (item) => {
-      console.log(item.key)
       if(item.key ==="/logout"){
-        dispatch(logout()).then(() => {
-          alert.show('You are logged out', {
-            type: 'success',
-            timeout: 5000,
-          });
-          history.push("/")
+        dispatch(logout())
+        history.push("/home")
+        alert.show('Logged Out!', {
+          type: 'success',
+          timeout: 5000,
         })
       }else{
         history.push(item.key)
       }
     }
+
+
   return (
     <Sider
     collapsible collapsed={collapsed} onCollapse={onCollapse}
@@ -53,11 +55,8 @@ export default function Sidebar() {
   >
     <div className="logo pt-5 mt-5" />
     <Menu theme="dark" mode="inline" defaultSelectedKeys={["/"]} selectedKeys={[location.pathname]} onClick={onClickMenu}>
-      <Menu.Item className="fw-bold" key="/" icon={<HomeOutlined />}>
-                HOME
-      </Menu.Item>
       <Menu.Item className="fw-bold" key="/products" icon={<TagOutlined />}>
-        PRODUCTS
+        HOME
       </Menu.Item>
       {currentUser ? (<Menu.Item className="fw-bold" key="/orders" icon={<ShoppingCartOutlined />}>
        ORDERS
