@@ -25,9 +25,11 @@ export default function ProductDetail(props) {
   };
 
   useEffect(() => {
-    setFieldsValue({
-      address: currentUser.address,
-    });
+    if(currentUser){
+      setFieldsValue({
+        address: currentUser.address,
+      });
+    }
   }, []);
 
   const onFinish = (values) => {
@@ -120,7 +122,8 @@ export default function ProductDetail(props) {
         actions={[
           <div className="p-2">
             {' '}
-            <Button type="primary" block size="large" onClick={() => { setVisible(true); }}>Buy</Button>
+            <Button type="primary" disabled={currentUser? false : true} block size="large" onClick={() => { setVisible(true); }}>Buy</Button>
+            {currentUser ? <></>:<p>login to buy this product</p>}
           </div>,
         ]}
       >
