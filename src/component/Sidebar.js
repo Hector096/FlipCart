@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   LoginOutlined,
   LogoutOutlined,
-  HomeOutlined,
   AliwangwangOutlined,
   ShoppingCartOutlined,
   TagOutlined,
@@ -23,23 +22,23 @@ export default function Sidebar() {
 
   const { Sider } = Layout;
 
-    const onCollapse = collapsed => {
-      setCollaped(collapsed);
-    };
+  const onCollapse = (collapsed) => {
+    setCollaped(collapsed);
+  };
 
-
-    const onClickMenu = (item) => {
-      if(item.key ==="/logout"){
-        dispatch(logout())
-        history.push("/home")
-        alert.show('Logged Out!', {
-          type: 'success',
-          timeout: 5000,
-        })
-      }else{
-        history.push(item.key)
-      }
+  const onClickMenu = (item) => {
+    if (item.key === '/logout') {
+      dispatch(logout());
+      history.push('/home');
+      alert.show('Logged Out!', {
+        type: 'success',
+        timeout: 5000,
+      });
+    } else {
+      history.push(item.key);
     }
+  };
+
   return (
     <Sider
       collapsible
@@ -52,11 +51,8 @@ export default function Sidebar() {
     >
       <div className="logo pt-5 mt-5" />
       <Menu theme="dark" mode="inline" defaultSelectedKeys={['/']} selectedKeys={[location.pathname]} onClick={onClickMenu}>
-        <Menu.Item className="fw-bold" key="/" icon={<HomeOutlined />}>
-          HOME
-        </Menu.Item>
         <Menu.Item className="fw-bold" key="/products" icon={<TagOutlined />}>
-          PRODUCTS
+          HOME
         </Menu.Item>
         {currentUser ? (
           <Menu.Item className="fw-bold" key="/orders" icon={<ShoppingCartOutlined />}>
@@ -81,27 +77,6 @@ export default function Sidebar() {
         ) : (<></>)}
 
       </Menu>
-      
-    <div className="logo pt-5 mt-5" />
-    <Menu theme="dark" mode="inline" defaultSelectedKeys={["/"]} selectedKeys={[location.pathname]} onClick={onClickMenu}>
-      <Menu.Item className="fw-bold" key="/products" icon={<TagOutlined />}>
-        HOME
-      </Menu.Item>
-      {currentUser ? (<Menu.Item className="fw-bold" key="/orders" icon={<ShoppingCartOutlined />}>
-       ORDERS
-      </Menu.Item>):(<></>)}
-      {currentUser && currentUser.admin ? (<Menu.Item className="fw-bold" key="/admin" icon={<AliwangwangOutlined />}>
-       ADMIN
-      </Menu.Item>):(<></>)}
-      {!currentUser ? (<Menu.Item className="fw-bold" key="/login" icon={<LoginOutlined />}>
-        LOGIN
-      </Menu.Item>):(<></>)}
-      
-      {currentUser ? (<Menu.Item className="fw-bold" key="/logout" icon={<LogoutOutlined />}>
-        LOGOUT
-      </Menu.Item>):(<></>)}
-      
-    </Menu>
-  </Sider>
-  )
+    </Sider>
+  );
 }
