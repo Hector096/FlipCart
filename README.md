@@ -9,7 +9,6 @@
 - JavaScript
 - CSS
 - Redux
-- Rubocop
 
 ## Getting Started
 
