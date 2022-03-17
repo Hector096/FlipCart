@@ -4,6 +4,13 @@
 
 ---
 
+## Credentials
+
+To login as an admin please use this credentials:
+
+Email: leandro1@admin.com
+password: leandro@1998
+
 ## Live Demo
 
 [FlipCart Website](https://deploy-preview-4--peaceful-meninsky-cc6a1e.netlify.app)
