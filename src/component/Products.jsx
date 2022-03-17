@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProducts } from '../redux/action/product';
 import { Card } from 'antd';
-import { Row, Col, Divider } from 'antd';
+import { Row, Col, Divider, Space } from 'antd';
 
 export default function Products() {
   const dispatch = useDispatch();
@@ -23,6 +23,7 @@ export default function Products() {
   const displayProducts = productsList.map((product) => (
     <Col key={product.id}>
       <div>
+        <Space direction="vertical">
         <Card
           hoverable
           style={{ width: 220 }}
@@ -31,6 +32,7 @@ export default function Products() {
           <Meta title={`${product.name}`} className="text-truncate" description={`${product.description}`} />
           <Meta style={priceStyle} description={'$' + `${product.price}`}/>
         </Card>
+        </Space>
       </div>
     </Col>
   ));
