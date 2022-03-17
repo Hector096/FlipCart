@@ -25,8 +25,7 @@ To get a local copy of this project just do the following:
 👤 **Vishal Verma**
 
 - GitHub: [@Hector096](https://github.com/Hector096)
-- Twitter: [@RealSimoNkosi](https://twitter.com/RealSimoNkosi)
-- LinkedIn: [LinkedIn](https://www.linkedin.com/in/simo-nkosi-418523180/)
+- LinkedIn: [@hector096](https://www.linkedin.com/in/hector096/)
 
 👤 **Emmanuelle Kamwa**
 
@@ -37,6 +36,7 @@ To get a local copy of this project just do the following:
 👤 **Leandro Barreto**
 
 - Github: [@Leandro-Barretoo](https://github.com/Leandro-Barretoo)
+- Linkedin:[@Leandro Barreto](https://www.linkedin.com/in/leandroobarreto/)
 
 
 ## 🤝 Contributing
