@@ -19,7 +19,7 @@ password: leandro@1998
 
 ## Screen-Shot
 
-[Screen Shot](./asset/screenshot.png)
+![Screen Shot](./asset/screenshot.png)
 
 ## Built With
 
