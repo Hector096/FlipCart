@@ -15,6 +15,12 @@ password: leandro@1998
 
 [FlipCart Website](https://deploy-preview-4--peaceful-meninsky-cc6a1e.netlify.app)
 
+
+
+## Screen-Shot
+
+[Screen Shot](./asset/screenshot.png)
+
 ## Built With
 
 - React
